@@ -54,6 +54,10 @@
     <Compile Include="KoansHelpers\ObjectExtensions.cs" />
     <Compile Include="Moq2_Methods.cs" />
     <Compile Include="Moq3_MethodsTest.cs" />
+    <Compile Include="Moq4_Virtual.cs" />
+    <Compile Include="Moq5_Properties.cs" />
+    <Compile Include="Moq6_VerifyMethods.cs" />
+    <Compile Include="Moq7_VerifyProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Moq1_Interfaces.cs" />
   </ItemGroup>
