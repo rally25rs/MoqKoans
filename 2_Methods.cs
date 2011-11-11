@@ -54,14 +54,16 @@ namespace MoqKoans
 			var volumeMock = new Mock<IVolume>(MockBehavior.Strict);
 			var volume = volumeMock.Object;
 
+			var exceptionWasThrown = false;
 			try
 			{
 				volume.CurrentVolume();
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				Assert.IsInstanceOfType(ex, typeof(___));
+				exceptionWasThrown = true;
 			}
+			Assert.AreEqual(___, exceptionWasThrown);
 		}
 
 		[TestMethod]
@@ -254,14 +256,16 @@ namespace MoqKoans
 			var mock = new Mock<IVolume>();
 			mock.Setup(x => x.CurrentVolume()).Throws(new InvalidOperationException("Calling CurrentVolume() will throw this Exception."));
 
+			var exceptionWasThrown = false;
 			try
 			{
 				mock.Object.CurrentVolume();
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				Assert.IsInstanceOfType(ex, typeof(___));
+				exceptionWasThrown = true;
 			}
+			Assert.AreEqual(___, exceptionWasThrown);
 		}
 
 		[TestMethod]

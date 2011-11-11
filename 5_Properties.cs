@@ -35,23 +35,27 @@ namespace MoqKoans
 		{
 			var person = new Mock<IPerson>(MockBehavior.Strict).Object;
 
+			var exceptionWasThrown = false;
 			try
 			{
 				var name = person.Name;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				Assert.IsInstanceOfType(ex, typeof(___));
+				exceptionWasThrown = true;
 			}
+			Assert.AreEqual(___, exceptionWasThrown);
 
+			exceptionWasThrown = false;
 			try
 			{
 				person.Name = "John";
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				Assert.IsInstanceOfType(ex, typeof(___));
+				exceptionWasThrown = true;
 			}
+			Assert.AreEqual(___, exceptionWasThrown);
 		}
 
 		[TestMethod]

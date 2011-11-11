@@ -24,14 +24,16 @@ namespace MoqKoans
 				.Returns(0)
 				.Verifiable();
 
+			var exceptionWasThrown = false;
 			try
 			{
 				mock.Verify(); // the call to Verify tells Moq to ensure that all .Verifiable() setup methods have been called.
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				Assert.IsInstanceOfType(ex, typeof(___));
+				exceptionWasThrown = true;
 			}
+			Assert.AreEqual(___, exceptionWasThrown);
 		}
 
 		[TestMethod]
@@ -42,15 +44,17 @@ namespace MoqKoans
 				.Returns(0)
 				.Verifiable("This message will be in the Exception if the method is not called.");
 
+			var exceptionWasThrown = false;
 			try
 			{
 				mock.Verify();
 			}
 			catch (Exception ex)
 			{
-				Assert.IsInstanceOfType(ex, typeof(___));
+				exceptionWasThrown = true;
 				Assert.IsTrue(ex.Message.Contains("___"));
 			}
+			Assert.AreEqual(___, exceptionWasThrown);
 		}
 
 		[TestMethod]
