@@ -11,5 +11,10 @@ namespace MoqKoans.KoansHelpers
 		{
 			throw new AssertFailedException(REPLACE_METHOD_MSG);
 		}
+
+		public static object ____(this object obj, params object[] inputs)
+		{
+			return null;
+		}
 	}
 }
