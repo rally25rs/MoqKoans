@@ -67,14 +67,17 @@ namespace MoqKoans
 		[TestMethod]
 		public void CanNotMockAPrivateInterface()
 		{
-			try
+
+      var exceptionWasThrown = false;
+      try
 			{
 				var mock = new Moq.Mock<IPrivateInterface>().Object;
 			}
 			catch (Exception ex)
 			{
-				Assert.IsInstanceOfType(ex, typeof(___));
+        exceptionWasThrown = true;
 			}
+      Assert.AreEqual(___, exceptionWasThrown);
 		}
 
 		[TestMethod]
