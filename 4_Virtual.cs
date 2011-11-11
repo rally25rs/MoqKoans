@@ -54,14 +54,16 @@ namespace MoqKoans
 		public void NonVirtualMethodsCanNotBeSetup()
 		{
 			var mockVehicle = new Mock<Vehicle>();
-			try
+      var exceptionWasThrown = false;
+      try
 			{
 				mockVehicle.Setup(m => m.GetHorsepower()).Returns(170);
 			}
 			catch (Exception ex)
 			{
-				Assert.IsInstanceOfType(ex, typeof(___));
+        exceptionWasThrown = true;
 			}
+      Assert.AreEqual(___, exceptionWasThrown);
 		}
 
 		// An abstract class to test Moq with.
@@ -94,14 +96,16 @@ namespace MoqKoans
 			mock.Setup(x => x.GetFirstName()).Returns("Fred");
 
 			Assert.AreEqual(___, mock.Object.GetFirstName());
-			try
+      var exceptionWasThrown = false;
+      try
 			{
 				mock.Object.GetLastName();
 			}
 			catch (Exception ex)
 			{
-				Assert.IsInstanceOfType(ex, typeof(___));
+        exceptionWasThrown = true;
 			}
+      Assert.AreEqual(___, exceptionWasThrown);
 		}
 
 		[TestMethod]
