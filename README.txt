@@ -21,6 +21,7 @@ To use these Koans, start by opening the file "1_Interfaces.cs".
 Go through each Unit Test in order.
 
   1. Run the test to see that it is currently failing.
+     (Run a single test method at a time, not all the tests in the project)
 
   2. Anywhere you see underscores (___), replace it with appropriate code.
      Think about what the answer should be, and why.

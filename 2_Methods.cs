@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MoqKoans.KoansHelpers;
@@ -108,6 +105,38 @@ namespace MoqKoans
 			mock.Setup(m => m.CurrentVolume()).Returns("50");
 
 			Assert.AreEqual(___, mock.Object.CurrentVolume());
+		}
+
+		[TestMethod]
+		public void TheValuePassedToReturnsIsEvaluatedWhenReturnsIsCalledNotWhenTheMethodIsCalled()
+		{
+			// this behavior often trips up new users to Moq!
+
+			var currentVolume = 50;
+			var mock = new Mock<IVolume>();
+
+			mock.Setup(m => m.CurrentVolume()).Returns(currentVolume.ToString());
+
+			Assert.AreEqual(___, mock.Object.CurrentVolume());
+
+			currentVolume = 10;
+			Assert.AreEqual(___, mock.Object.CurrentVolume());
+		}
+
+		[TestMethod]
+		public void TheReturnsMethodCanAlsoBeGivenADelegateOrLambdaToEvaluateEachTimeTheMethodIsCalled()
+		{
+			var currentVolume = 50;
+			var mock = new Mock<IVolume>();
+
+			mock.Setup(m => m.CurrentVolume()).Returns(() => currentVolume.ToString());
+
+			Assert.AreEqual(___, mock.Object.CurrentVolume());
+
+			currentVolume = 10;
+			Assert.AreEqual(___, mock.Object.CurrentVolume());
+			
+			// Ask yourself; why does this behave differently than the previous test?
 		}
 
 		[TestMethod]
