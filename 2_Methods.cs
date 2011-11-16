@@ -142,6 +142,24 @@ namespace MoqKoans
 		}
 
 		[TestMethod]
+		public void LambdasPassedToReturnsCanDoComplicatedThings()
+		{
+			var currentVolume = 50;
+			var mock = new Mock<IVolume>();
+
+			mock.Setup(m => m.Louder(It.IsAny<int>())).Returns<int>(input =>
+				{
+					currentVolume += input;
+					if (currentVolume < 50)
+						return 100;
+					return 0;
+				});
+
+			Assert.AreEqual(___, mock.Object.Louder(10));			
+			Assert.AreEqual(___, mock.Object.Louder(-10));			
+		}
+
+		[TestMethod]
 		public void WhenAMethodTakesInputParametersTheSetupMethodCanHandleThem_ItIsAny_MatchesAllValues()
 		{
 			var mock = new Mock<IVolume>();
@@ -301,6 +319,37 @@ namespace MoqKoans
 
 			Assert.AreEqual(___, louderWasCalled);
 			Assert.AreEqual(___, quieterWasCalled);
+		}
+
+		[TestMethod]
+		public void SetupMethodCanPerformAnActionAndReturnAValue()
+		{
+			bool louderWasCalled = false;
+
+			// In this form, .Callback() performs an action and .Returns() sets a return value.
+			var mock = new Mock<IVolume>();
+			mock.Setup(x => x.Louder(It.IsAny<int>()))
+				.Callback(() => louderWasCalled = true)
+				.Returns<int>(input => input);
+
+			var result = mock.Object.Louder(5);
+
+			Assert.AreEqual(___, louderWasCalled);
+			Assert.AreEqual(___, result);
+
+			// The same thing can be done like this, in a single lambda in .Returns()
+			mock = new Mock<IVolume>();
+			mock.Setup(x => x.Louder(It.IsAny<int>()))
+				.Returns<int>(input =>
+					{
+						louderWasCalled = true;
+						return input;
+					});
+
+			result = mock.Object.Louder(5);
+
+			Assert.AreEqual(___, louderWasCalled);
+			Assert.AreEqual(___, result);
 		}
 	}
 }
