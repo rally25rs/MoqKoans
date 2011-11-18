@@ -69,15 +69,22 @@ namespace MoqKoans
 		[TestMethod]
 		public void TheSetupMethodChangesTheBehaviorOfAMockedMethod()
 		{
-			var volMock = new Mock<IVolume>(MockBehavior.Strict);
-			volMock.Setup(m => m.CurrentVolume());
+			var volumeMock = new Mock<IVolume>(MockBehavior.Strict);
+			var volume = volumeMock.Object;
 
-			// because the Mock is in Strict behavior, after the call to .Setup(),
-			// Louder() and Quieter() will still throw exceptions if called,
-			// but CurrentVolume() now has an implementation, so can be called
-			// without error.
+			// This tells Moq that the CurrentVolume() method should return string.Empty when called.
+			volumeMock.Setup(m => m.CurrentVolume()).Returns(string.Empty);
 
-			Assert.AreEqual(___, volMock.Object.CurrentVolume());
+			var exceptionWasThrown = false;
+			try
+			{
+				volume.CurrentVolume();
+			}
+			catch (Exception)
+			{
+				exceptionWasThrown = true;
+			}
+			Assert.AreEqual(___, exceptionWasThrown);
 		}
 
 		[TestMethod]
