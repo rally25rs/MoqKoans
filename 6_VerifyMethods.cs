@@ -60,23 +60,26 @@ namespace MoqKoans
 		[TestMethod]
 		public void IfAMethodIsSetupVerifiableButVerifyIsNotCalledLaterThenNoExceptionIsThrown()
 		{
-			var mock = new Mock<IVolume>();
-			mock.Setup(x => x.Louder(It.IsAny<int>()))
-				.Returns(0)
-				.Verifiable("Louder was not called.");
-
-			//mock.Object.Louder(0);  <-- intentionally NOT calling .Louder. Don't uncomment this to solve the test.
-
+			bool wasExceptionThrown = false;
 			try
 			{
-				mock.___();
+				var mock = new Mock<IVolume>();
+				mock.Setup(x => x.Louder(It.IsAny<int>()))
+					.Returns(0)
+					.Verifiable("Louder was not called.");
 
-				Assert.Fail(".Louder() was not called on the Mock, but no exception was thrown.");
+				//mock.Object.Louder(0);  <-- intentionally NOT calling .Louder(). Don't uncomment this.
+
+				//mock.Verify(); <-- intentionally NOT calling .Verify(). Don't uncomment this.
 			}
 			catch (MockException)
 			{
-				// we expect an exception to be thrown, sicne we are not calling .Louder(), but it is setup to be verifiable.
+				wasExceptionThrown = true;
 			}
+
+			// Since the method is setup with .Verifiable(), and we did not call .Louder(), is an Exception thrown?
+			// Why or Why Not?
+			Assert.AreEqual(___, wasExceptionThrown);
 		}
 
 		[TestMethod]
@@ -128,6 +131,7 @@ namespace MoqKoans
 		public void MethodCallsCanAlsoBeVerifiedWithTheVerifyMethodInsteadOfInSetup()
 		{
 			var mock = new Mock<IVolume>();
+			var wasAnExceptionThrown = false;
 
 			try
 			{
@@ -135,10 +139,11 @@ namespace MoqKoans
 				// that indicates what method and parameters to verify.
 				mock.Verify(x => x.CurrentVolume());
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				Assert.IsInstanceOfType(ex, typeof(___));
+				wasAnExceptionThrown = true;
 			}
+			Assert.AreEqual(___, wasAnExceptionThrown);
 		}
 
 		[TestMethod]
