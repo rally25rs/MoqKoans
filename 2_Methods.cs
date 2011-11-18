@@ -154,10 +154,11 @@ namespace MoqKoans
 			var currentVolume = 50;
 			var mock = new Mock<IVolume>();
 
-			mock.Setup(m => m.Louder(It.IsAny<int>())).Returns<int>(input =>
+			mock.Setup(m => m.Louder(It.IsAny<int>()))
+				.Returns<int>(input =>
 				{
-					currentVolume += input;
-					if (currentVolume < 50)
+					var newVolume = currentVolume + input;
+					if (newVolume > 50)
 						return 100;
 					return 0;
 				});
